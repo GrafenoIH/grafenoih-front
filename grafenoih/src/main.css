@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inria+Sans&display=swap');
+@import "tailwindcss";
+
+
+@theme {
+
+  --color-bgcolor: oklch(0.2578 0.0074 285.87);
+
+  --color-custom-900: oklch(0.3085 0.0655 164.26);
+  --color-custom-800: oklch(0.4656 0.105864 159.6808);
+  --color-custom-700: oklch(0.6095 0.145553 156.8391);
+  --color-custom-600: oklch(0.7454 0.182768 155.427);
+  --color-custom-500: oklch(0.8738 0.2417 149.81);
+  --color-custom-400: oklch(0.8765 0.2243 151.18);
+  --color-custom-300: oklch(0.8894 0.1931 152.2);
+  --color-custom-200: oklch(0.9111 0.148 152.38);
+  --color-custom-100: oklch(0.9417 0.0903 152.65);
+
+  --color-accent: oklch(0.9789 0.023 153.47);
+
+  --font-display : "Space Grotesk", sans-serif;
+  --font-paragraph : "Inria Sans", sans-serif;
+
+}
