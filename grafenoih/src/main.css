@@ -23,3 +23,12 @@
   --font-paragraph : "Inria Sans", sans-serif;
 
 }
+
+@layer utilities {
+  .appbg {
+    opacity: 0.8;
+    background-image: radial-gradient(#006B44 0.5px, #232327 0.5px);
+    background-size: 10px 10px;
+  }
+}
+
