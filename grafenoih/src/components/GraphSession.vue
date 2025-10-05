@@ -11,37 +11,9 @@ const networkRef = ref(null)
 
 const emits = defineEmits(['hideSidebar', 'showSidebar'])
 
-onMounted(() => {
-  let nodesResponse = graphService.getEdges().data
-
-  let listNodes = []
-
-  for (let i = 0; i < nodesResponse.length; i++) {
-    const currentNode = nodesResponse[i]
-
-    const newNode = {
-      id: currentNode.id,
-      label: currentNode.name,
-    }
-
-    listNodes.append(newNode)
-  }
-
-  const nodes = new DataSet([
-    {
-      id: 1,
-      label: 'Health and Health Tissue in Microgravity',
-    },
-    {
-      id: 2,
-      label: 'Stem Cell Health and Tissue Regeneration in Microgravity',
-    },
-    {
-      id: 3,
-      label: 'Cell Health and Cell Regeneration in Microgravity Tissue',
-    },
-  ])
-  const edges = new DataSet([{ from: 1, to: 2 }])
+onMounted(async () => {
+  const nodes = new DataSet([])
+  const edges = new DataSet([])
 
   const options = {
     interaction: { hover: true },
@@ -69,7 +41,6 @@ onMounted(() => {
     },
     physics: {
       enabled: true,
-
       solver: 'repulsion',
       repulsion: {
         centralGravity: 0.1,
@@ -83,14 +54,32 @@ onMounted(() => {
 
   const network = new Network(networkRef.value, { nodes, edges }, options)
 
-  network.on('hoverNode', () => {})
-
   network.on('selectNode', (params) => {
-    showSidebar(params)
+    showSidebar(params.nodes[0])
   })
+
   network.on('deselectNode', () => {
     hideSidebar()
   })
+
+  try {
+    const [nodesData, edgesData] = await Promise.all([
+      graphService.getNodesStream(),
+      graphService.getEdgesStream(),
+    ])
+
+    nodes.add(nodesData)
+    edges.add(edgesData)
+
+    network.fit({
+      animation: {
+        duration: 1000,
+        easingFunction: 'easeInOutQuad',
+      },
+    })
+  } catch (error) {
+    console.error('Failed to load graph data:', error)
+  }
 })
 
 function showSidebar(params) {
