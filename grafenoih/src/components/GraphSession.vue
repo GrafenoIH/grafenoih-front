@@ -5,12 +5,28 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { DataSet, Network } from 'vis-network/standalone'
+import graphService from '@/services/graphservice'
 
 const networkRef = ref(null)
 
 const emits = defineEmits(['hideSidebar', 'showSidebar'])
 
 onMounted(() => {
+  let nodesResponse = graphService.getEdges().data
+
+  let listNodes = []
+
+  for (let i = 0; i < nodesResponse.length; i++) {
+    const currentNode = nodesResponse[i]
+
+    const newNode = {
+      id: currentNode.id,
+      label: currentNode.name,
+    }
+
+    listNodes.append(newNode)
+  }
+
   const nodes = new DataSet([
     {
       id: 1,
