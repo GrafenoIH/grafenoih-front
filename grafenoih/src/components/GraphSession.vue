@@ -26,10 +26,6 @@ onMounted(async () => {
         highlight: { background: '#EDFDF1', border: '#EDFDF1' },
         hover: { background: '#5FFE99', border: '#5FFE99' },
       },
-      font: {
-        color: '#5FFE99',
-        size: 16,
-      },
     },
     edges: {
       width: 2,

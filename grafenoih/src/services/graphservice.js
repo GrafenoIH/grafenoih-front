@@ -1,10 +1,6 @@
 import api from './api.js';
 
 const graphService = {
-  async getEdges() {
-    return api.get('/edges');
-  },
-
   async getEdgesStream() {
     const baseURL = api.defaults.baseURL || '';
     const response = await fetch(`${baseURL}/edges/stream`, {
@@ -12,31 +8,26 @@ const graphService = {
     });
 
     return processStream(response, (item) => ({
-      from: item.source.id,
-      to: item.target.id,
+      from: item.source,
+      to: item.target,
       ...item
     }));
   },
 
-  async getNodes() {
-    return api.get('/nodes');
-  },
-
   async getNodesStream() {
     const baseURL = api.defaults.baseURL || '';
-    const response = await fetch(`${baseURL}/nodestream`, {
+    const response = await fetch(`${baseURL}/nodes/stream`, {
       headers: api.defaults.headers.common
     });
 
     return processStream(response, (item) => ({
       id: item.id,
-      label: item.name,
       ...item
     }));
   },
 
   async getNode(id) {
-    return api.get('/nodes/' + id);
+    return api.get('/node/' + id);
   },
 
   async search(string) {

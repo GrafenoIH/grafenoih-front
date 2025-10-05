@@ -3,23 +3,24 @@
     <main
       class="w-full rounded-tl h-[70%] flex flex-col gap-4 bg-bgcolor text-accent border border-custom-100 p-4"
     >
-      <h2
+      <a
+        :href="node?.link"
+        target="_blank"
         class="text-lg font-display hover:text-custom-200 transition duration-150 cursor-pointer hover:underline"
       >
-        {{ node?.name }}
+        {{ node?.title }}
 
         <ArrowUpRightFromSquare class="inline" :size="16" />
-      </h2>
-
+      </a>
       <h3 class="font-paragraph text-custom-100">
-        Elizabeth Blaber 1 , Kevin Sato, Eduardo A C Almeida
+        {{ node?.data }}
       </h3>
-      <a
-        v-if="false"
-        class="font-paragraph text-custom-100"
-        target="_blank"
-        href="https://pubmed.ncbi.nlm.nih.gov/25457968/"
-        >https://pubmed.ncbi.nlm.nih.gov/25457968/</a
+      <h3 class="font-paragraph text-custom-100">
+        {{ formatAuthors(node?.authors) }}
+      </h3>
+
+      <a v-if="false" class="font-paragraph text-custom-100" target="_blank" :href="node?.link"
+        >node?.link</a
       >
       <p class="font-paragraph">Abstract:</p>
       <p class="text-sm font-paragraph text-pretty overflow-y-scroll">
@@ -49,4 +50,12 @@ defineProps({
     default: null,
   },
 })
+
+function formatAuthors(authors) {
+  let authorsList = ''
+
+  authorsList = authors.replaceAll("'", '') + ', '
+
+  return authorsList.substring(1, authorsList.length - 3)
+}
 </script>
