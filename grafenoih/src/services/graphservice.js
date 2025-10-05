@@ -23,7 +23,6 @@ const graphService = {
 
     return processStream(response, (item) => ({
       id: item.id,
-      color: embeddingToHex(item.embedding),
       ...item
     }));
   },
