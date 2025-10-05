@@ -10,6 +10,7 @@ const graphService = {
     return processStream(response, (item) => ({
       from: item.source,
       to: item.target,
+      length: 50 + 200 * item.similarity,
       ...item
     }));
   },
@@ -22,6 +23,7 @@ const graphService = {
 
     return processStream(response, (item) => ({
       id: item.id,
+      color: embeddingToHex(item.embedding),
       ...item
     }));
   },
@@ -31,6 +33,8 @@ const graphService = {
   },
 
   async search(string) {
+    if(string == "")
+      return
     return api.get('/nodes/search/' + string);
   }
 };
@@ -79,6 +83,24 @@ async function processStream(response, transformFn) {
   }
 
   return items;
+}
+
+function embeddingToHex(embedding) {
+  let dims = [embedding[0] || 0, embedding[1] || 0, embedding[2] || 0];
+
+  const min = Math.min(...dims);
+  const max = Math.max(...dims);
+  const range = max - min || 1;
+  const normalized = dims.map(v => (v - min) / range);
+
+  const hex = normalized
+    .map(v => {
+      const h = Math.floor(v * 255).toString(16);
+      return h.length === 1 ? "0" + h : h;
+    })
+    .join("");
+
+  return `#${hex}`;
 }
 
 export default graphService;

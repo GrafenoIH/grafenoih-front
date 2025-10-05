@@ -28,7 +28,7 @@ onMounted(async () => {
       },
     },
     edges: {
-      width: 2,
+      width: 8,
       color: {
         color: '#006B44',
         highlight: '#EDFDF1',
