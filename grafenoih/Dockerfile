@@ -23,7 +23,7 @@ FROM nginx:stable-alpine AS production-stage
 COPY --from=build-stage /app/dist /usr/share/nginx/html
 
 # Expõe a porta 80 para o servidor
-EXPOSE 80
+EXPOSE 8080
 
 # Comando padrão para iniciar o Nginx
 CMD ["nginx", "-g", "daemon off;"]
