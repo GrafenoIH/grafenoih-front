@@ -32,7 +32,7 @@
       <ul class="h-full flex flex-col gap-2 overflow-y-scroll">
         <li v-for="i in 6" :key="i" class="font-paragraph text-accent">
           <a class="hover:text-custom-200 transition duration-150 cursor-pointer hover:underline">
-            - STEM Links to Genetics in Stem Cells
+            - Related Research {{ i }}
             <ArrowUpRightFromSquare class="mb-[2px] ml-[2px] inline" :size="12" />
           </a>
         </li>
