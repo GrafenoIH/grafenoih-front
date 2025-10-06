@@ -1,0 +1,16 @@
+# Ignorar dependências locais
+node_modules
+dist
+
+# Ignorar arquivos de controle de versão
+.git
+.gitignore
+
+# Ignorar arquivos de configuração e logs locais
+.env
+.vscode
+*.log
+
+# Ignorar arquivos desnecessários
+Dockerfile
+.dockerignore
